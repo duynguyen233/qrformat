@@ -21,7 +21,7 @@ var formatCmd = &cobra.Command{
 		if FormatData != "" {
 			response, err := format.FormatQR(FormatData)
 			if err != nil {
-				fmt.Println("Invalid Format of QR: ", err)
+				fmt.Println("\033[31m✘ Error\033[0m: ", err)
 				return
 			}
 			fmt.Print(response)

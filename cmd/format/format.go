@@ -18,7 +18,7 @@ func parsedData(data string, index *int) (string, string, string, error) {
 	*index += LEN_SIZE
 	payloadLen, err := strconv.Atoi(payloadLenStr)
 	if err != nil {
-		return "", "", "", fmt.Errorf("invalid payload length %s", payloadLenStr)
+		return "", "", "", fmt.Errorf("invalid payload length \033[31m%s\033[0m", payloadLenStr)
 	}
 	if len(data) < ID_SIZE+LEN_SIZE+payloadLen {
 		return "", "", "", fmt.Errorf("data too short for payload")
@@ -63,14 +63,14 @@ func FormatQR(data string) (string, error) {
 	for i := 0; i < len(data); {
 		idStr, payloadLenStr, payload, err := parsedData(data, &i)
 		if err != nil {
-			return "", fmt.Errorf("error parsing data at index %d: %v", i, err)
+			return "", fmt.Errorf("error parsing data of id \033[31m%s\033[0m: \033[1m%s%s%s\033[0m", idStr, idStr, payloadLenStr, payload)
 		}
 		id, _ := strconv.Atoi(idStr)
 		switch {
 		case id >= 26 && id <= 51:
 			payloadFormatted, err := formatCaseOutOfList(id, payload)
 			if err != nil {
-				return "", fmt.Errorf("error formatting payload of id %s: %v", idStr, err)
+				return "", fmt.Errorf("error parsing data of id \033[31m%s\033[0m: \033[1m%s%s%s\033[0m", idStr, idStr, payloadLenStr, payload)
 			}
 			formattedData += fmt.Sprintf("%s %s\n%s", idStr, payloadLenStr, payloadFormatted)
 		default:
