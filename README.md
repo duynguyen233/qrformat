@@ -2,7 +2,7 @@
 
 ## Install the qrformat
 ```
-go get github.com/duynguyen233/qrformat@v1.0.1
+go install github.com/duynguyen233/qrformat@v1.0.1
 ```
 ## Basic Use
 ```
